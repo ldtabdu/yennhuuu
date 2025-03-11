@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+body {
+    margin: 0;
+    overflow: hidden;
+    background: radial-gradient(circle, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+h1 {
+    font-size: clamp(40px, 10vw, 90px);
+    font-family: "Pacifico", cursive;
+    text-shadow: 4px 4px 12px rgba(255, 255, 255, 0.9);
+    opacity: 0;
+    animation: fadeIn 3s forwards, wave 5s infinite alternate;
+    background-image: linear-gradient(90deg, red, orange, yellow, green, cyan, blue, violet);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    max-width: 90%;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes wave {
+    0% {
+        transform: translateY(0px);
+        background-position: 0% 50%;
+    }
+    50% {
+        transform: translateY(-10px);
+        background-position: 100% 50%;
+    }
+    100% {
+        transform: translateY(0px);
+        background-position: 0% 50%;
+    }
+}
+
+.particle,
+.flower {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    opacity: 0.9;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.flower {
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    position: absolute;
+}

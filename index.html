@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nguyễn Yến Như</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Nguyễn Yến Như</h1>
+
+    <!-- Nhạc nền -->
+    <audio id="background-music" loop>
+      <source src="your-music-file.mp3" type="audio/mpeg" />
+      Trình duyệt của bạn không hỗ trợ âm thanh.
+    </audio>
+
+    <script>
+      function createParticle(x, y) {
+        const particle = document.createElement("div");
+        particle.classList.add("particle");
+        document.body.appendChild(particle);
+
+        const colors = ["#ff9a9e", "#fad0c4", "#ffdde1", "#ff758c", "#ff7eb3"];
+        particle.style.backgroundColor =
+          colors[Math.floor(Math.random() * colors.length)];
+
+        const angle = Math.random() * 2 * Math.PI;
+        const speed = Math.random() * 6 + 3;
+        const xVelocity = Math.cos(angle) * speed;
+        const yVelocity = Math.sin(angle) * speed;
+
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+
+        let life = 100;
+        const interval = setInterval(() => {
+          x += xVelocity;
+          y += yVelocity;
+          particle.style.left = `${x}px`;
+          particle.style.top = `${y}px`;
+          particle.style.opacity = life / 100;
+          life--;
+          if (life <= 0) {
+            clearInterval(interval);
+            particle.remove();
+          }
+        }, 16);
+      }
+
+      function createFlower() {
+        const flower = document.createElement("div");
+        flower.classList.add("flower");
+        flower.style.backgroundImage =
+          "url('https://upload.wikimedia.org/wikipedia/commons/2/29/Rose.svg')";
+        flower.style.left = `${Math.random() * window.innerWidth}px`;
+        flower.style.top = `${Math.random() * window.innerHeight}px`;
+        document.body.appendChild(flower);
+      }
+
+      function fireworks() {
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        for (let i = 0; i < 150; i++) {
+          setTimeout(() => createParticle(centerX, centerY), i * 3);
+        }
+      }
+
+      function flowerEffect() {
+        for (let i = 0; i < 20; i++) {
+          setTimeout(createFlower, i * 500);
+        }
+      }
+
+      function enableAudio() {
+        const audio = document.getElementById("background-music");
+        audio.play().catch((error) => {
+          console.log("Tự động phát bị chặn:", error);
+
+          const playMusic = () => {
+            audio.play();
+            document.removeEventListener("click", playMusic);
+          };
+          document.addEventListener("click", playMusic);
+        });
+      }
+
+      window.onload = () => {
+        fireworks();
+        flowerEffect();
+        enableAudio();
+      };
+
+      document.addEventListener("visibilitychange", function () {
+        if (document.visibilityState === "visible") {
+          enableAudio();
+        }
+      });
+    </script>
+  </body>
+</html>
